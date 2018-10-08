@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="date" content="2018-10-01" />
+
+<title>crossrun: An R Package for the Joint Distribution of Number of Crossings and Longest Run in Independent Bernoulli Observations</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">crossrun: An R Package for the Joint Distribution of Number of Crossings and Longest Run in Independent Bernoulli Observations</h1>
+<h4 class="author"><em>Tore Wentzel-Larsen</em></h4>
+<address class="author_afil">
+Centre for Child and Adolescent Mental Health, Eastern and Southern Norway; Norwegian Centre of Violence and Traumatic Stress Studies<br><a class="author_email" href="mailto:#"><a href="mailto:tore.wentzellarsen@gmail.com">tore.wentzellarsen@gmail.com</a></a>
+</address>
+<h4 class="author"><em>Jacob Anhøj</em></h4>
+<address class="author_afil">
+Rigshospitalet, University of Copenhagen, Denmark<br><a class="author_email" href="mailto:#"><a href="mailto:jacob@anhoej.net">jacob@anhoej.net</a></a>
+</address>
+<h4 class="date"><em>2018-10-01</em></h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#the-main-function-crossrunbin">The main function: <code>crossrunbin</code></a></li>
+<li><a href="#the-times-representation-of-the-joint-distributions">The “times” representation of the joint distributions</a></li>
+<li><a href="#the-symmetric-case-crossrunsymm">The symmetric case: <code>crossrunsymm</code></a></li>
+<li><a href="#generalisation">Generalisation</a></li>
+<li><a href="#limitations">Limitations</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
+<li><a href="#references">References</a></li>
+<li><a href="#appendix-checking-procedures">Appendix: Checking procedures</a></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>The setting is defined by a number, n, of independent observations from a Bernoulli distribution with equal success probability. In statistical process control, our main intended application, this may be the useful observations in a run chart recording values above and below a pre-specified centre line (usually the median obtained from historical data) disregarding any observations equal to the centre line (<a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0121349">Anhøj (2015)</a>).</p>
+<p>The focus of <code>crossrun</code> is the number of crossings, C, and the length of the longest run in the sequence, L. A run is a sequence of successes or failures, delimited by a different observation or the start or end of the entire sequence. A crossing is two adjacent different observations.</p>
+<p>Figure 1 illustrates runs and crossings in a run chart with 24 observations. Observations above and below the median represent successes and failures respectively:</p>
+<div class="figure">
+<img src="data:image/png;base64,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" alt="Figure 1" />
+<p class="caption">Figure 1</p>
+</div>
+<p>The longest run consists of observations 12-16 below the median. Thus, the length of the longest run is L = 5 in this case. The number of crossings of the median is C = 11.</p>
+<p>C and L are inversely related. All things being equal, when one goes up, the other goes down. <code>crossrun</code> computes the joint distribution of C and L.</p>
+<p>L and C are integers. L may be any integer between 1, if all subsequent observations are different, and n, if all observations are equal. C may be any integer between 0, if all observations are equal, and n - 1 if all subsequent observations are different. Not all combinations of C and L are possible as shown in the following example for n = 15 and success probability = 0.5.</p>
+<table>
+<caption>Table 1</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">L = 1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">7</th>
+<th align="right">8</th>
+<th align="right">9</th>
+<th align="right">10</th>
+<th align="right">11</th>
+<th align="right">12</th>
+<th align="right">13</th>
+<th align="right">14</th>
+<th align="right">15</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>C = 0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">9</td>
+<td align="right">18</td>
+<td align="right">18</td>
+<td align="right">15</td>
+<td align="right">12</td>
+<td align="right">9</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">48</td>
+<td align="right">88</td>
+<td align="right">84</td>
+<td align="right">60</td>
+<td align="right">40</td>
+<td align="right">24</td>
+<td align="right">12</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">100</td>
+<td align="right">280</td>
+<td align="right">270</td>
+<td align="right">175</td>
+<td align="right">100</td>
+<td align="right">50</td>
+<td align="right">20</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">50</td>
+<td align="right">530</td>
+<td align="right">666</td>
+<td align="right">420</td>
+<td align="right">210</td>
+<td align="right">90</td>
+<td align="right">30</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">357</td>
+<td align="right">1197</td>
+<td align="right">861</td>
+<td align="right">392</td>
+<td align="right">147</td>
+<td align="right">42</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">1008</td>
+<td align="right">1456</td>
+<td align="right">672</td>
+<td align="right">224</td>
+<td align="right">56</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td align="right">0</td>
+<td align="right">84</td>
+<td align="right">1470</td>
+<td align="right">1044</td>
+<td align="right">324</td>
+<td align="right">72</td>
+<td align="right">9</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td align="right">0</td>
+<td align="right">252</td>
+<td align="right">1200</td>
+<td align="right">450</td>
+<td align="right">90</td>
+<td align="right">10</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td align="right">0</td>
+<td align="right">330</td>
+<td align="right">550</td>
+<td align="right">110</td>
+<td align="right">11</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td align="right">0</td>
+<td align="right">220</td>
+<td align="right">132</td>
+<td align="right">12</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td align="right">0</td>
+<td align="right">78</td>
+<td align="right">13</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td align="right">0</td>
+<td align="right">14</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>As will be described and justified in more detail later, the table above does not give the probabilities themselves, but the probabilities multiplied by <span class="math inline">\(2^{n-1}\)</span>, that is 16384 for n = 15. For instance <span class="math inline">\(P (C=6, L=5)\)</span> = 861 / 16384 = 0.053. The highest joint probability is <span class="math inline">\(P (C=8, L=3)\)</span> = 1470 / 16384 = 0.090. Thus, in a run chart with 15 observations not on the median, the most likely longest run and number of crossings is 3 and 8 respectively.</p>
+<p>As seen in the table, the non-zero probabilities are confined to a sloped region that is rather narrow but sufficiently wide that the two variables together are more informative than each of them in isolation. These are general phenomena.</p>
+<p>The procedure for computing the joint distribution of C and L is iterative, which means that the joint distribution for a sequence of length n cannot be computed before the joint distributions for all shorter sequences have been computed. At the moment, the computations have been validated for n up to 100, and success probabilities 0.5 to 0.9 in steps of 0.1.</p>
+</div>
+<div id="the-main-function-crossrunbin" class="section level2">
+<h2>The main function: <code>crossrunbin</code></h2>
+<p>The function <code>crossrunbin</code> has two main arguments, <code>nmax</code> that is the maximum sequence length and <code>prob</code> that is the success probability. Other arguments include a multiplier described later and a precision parameter, these should normally be left at their default values. See <code>?crossrunbin</code> for details.</p>
+<p>The joint probabilities are stored in a list of 6 lists of which <code>pt</code> is sufficient for normal use. The others are mainly included for code checking. <code>pt</code> gives an n by n matrix for each sequence length n. For instance</p>
+<p><code>crb40.6 &lt;- crossrunbin(nmax = 40, prob = 0.6)$pt</code></p>
+<p>computes the joint probabilities for all sequence lengths <span class="math inline">\(n \leq 40\)</span> when the success probability is 0.6. For simplicity, the command above only returns the joint probabilities <code>pt</code>. When the computation is finished, the joint distribution for say n = 15 is</p>
+<p><code>crb40.6[[15]]</code></p>
+<p>Actually the resulting joint distribution is not quite a matrix, it is a two-dimensional mpfr array (<a href="http://doi.acm.org/10.1145/1236463.1236468">Fousse et, al, 2007</a>, <a href="https://CRAN.R-project.org/package=Rmpfr">Mächler 2018</a>). Two-dimensional mpfr arrays are almost the same as matrices, but with appreciably higher precision. Since the computation procedure is iterative, high precision during calculation is vital, but the resulting joint distributions may subsequently be transformed into ordinary matrices by the <a href="https://CRAN.R-project.org/package=Rmpfr">Rmpfr</a> function <code>asNumeric</code> for easier presentation. To limit the package size, only the joint distributions for n = 15, 60, 100 and success probabilities 0.5 (the symmetric case) and 0.6 have been included in this package, as ordinary matrices.</p>
+</div>
+<div id="the-times-representation-of-the-joint-distributions" class="section level2">
+<h2>The “times” representation of the joint distributions</h2>
+<p>As mentioned, the joint distributions are actually not computed as probabilities, but as probabilities multiplied by a multiplier whose default value is <span class="math inline">\(2^{n-1}\)</span>. Optionally another multiplier <span class="math inline">\(m^{n-1}\)</span> could be used where <span class="math inline">\(m\)</span> is an argument (<code>mult</code>) to the function <code>crossrunbin</code>, but the default value should normally be used. This representation is shown in Table 1 for n = 15 and p = 0.5.</p>
+<p>One may note that in Table 1 all probabilities are represented by integers in the “times” representation. This is a general phenomenon in the symmetric case, but not for success probabilities different from 0.5. In the symmetric case (<a href="http://www.plosone.org/article/info%3Adoi%2F10.1371%2Fjournal.pone.0113825">Anhøj and Vingaard Olesen (2014)</a>) the number, C, of crossings has a binomial distribution with number of observations n - 1 and probability 0.5, and their marginal probabilities are just the binomial coefficients divided by <span class="math inline">\(2^{n-1}\)</span>. Indeed, the row sums in the times representation are the binomial coefficients in the symmetric case. This will be explicated later in the case of n = 15.</p>
+<p>When the success probability is not 0.5, the joint distribution is no longer represented by integers even in the times representation. This is illustrated below for n = 15 and success probability 0.6.</p>
+<table>
+<caption>Table 2</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">L = 1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">7</th>
+<th align="right">8</th>
+<th align="right">9</th>
+<th align="right">10</th>
+<th align="right">11</th>
+<th align="right">12</th>
+<th align="right">13</th>
+<th align="right">14</th>
+<th align="right">15</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>C = 0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">7.7</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">1.5</td>
+<td align="right">1.8</td>
+<td align="right">2.3</td>
+<td align="right">3.2</td>
+<td align="right">4.7</td>
+<td align="right">6.9</td>
+<td align="right">10.3</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">1.1</td>
+<td align="right">11.4</td>
+<td align="right">29.3</td>
+<td align="right">33.7</td>
+<td align="right">31.8</td>
+<td align="right">29.7</td>
+<td align="right">26.8</td>
+<td align="right">21.9</td>
+<td align="right">13.8</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">3.0</td>
+<td align="right">41.7</td>
+<td align="right">91.7</td>
+<td align="right">105.9</td>
+<td align="right">87.8</td>
+<td align="right">70.3</td>
+<td align="right">51.9</td>
+<td align="right">32.6</td>
+<td align="right">13.9</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.9</td>
+<td align="right">99.2</td>
+<td align="right">318.3</td>
+<td align="right">354.3</td>
+<td align="right">260.6</td>
+<td align="right">172.1</td>
+<td align="right">101.9</td>
+<td align="right">49.2</td>
+<td align="right">15.1</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">39.3</td>
+<td align="right">468.8</td>
+<td align="right">670.6</td>
+<td align="right">483.1</td>
+<td align="right">278.4</td>
+<td align="right">141.5</td>
+<td align="right">57.1</td>
+<td align="right">14.1</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">319.2</td>
+<td align="right">1180.3</td>
+<td align="right">948.8</td>
+<td align="right">485.7</td>
+<td align="right">210.1</td>
+<td align="right">70.9</td>
+<td align="right">14.2</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td align="right">0.0</td>
+<td align="right">6.0</td>
+<td align="right">836.1</td>
+<td align="right">1324.0</td>
+<td align="right">679.9</td>
+<td align="right">257.7</td>
+<td align="right">75.4</td>
+<td align="right">12.9</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td align="right">0.0</td>
+<td align="right">68.5</td>
+<td align="right">1289.2</td>
+<td align="right">994.7</td>
+<td align="right">341.5</td>
+<td align="right">86.5</td>
+<td align="right">12.6</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td align="right">0.0</td>
+<td align="right">196.4</td>
+<td align="right">991.5</td>
+<td align="right">402.9</td>
+<td align="right">89.8</td>
+<td align="right">11.5</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td align="right">0.0</td>
+<td align="right">267.1</td>
+<td align="right">466.8</td>
+<td align="right">100.8</td>
+<td align="right">11.3</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td align="right">0.0</td>
+<td align="right">170.3</td>
+<td align="right">106.7</td>
+<td align="right">10.5</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td align="right">0.0</td>
+<td align="right">61.2</td>
+<td align="right">10.6</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td align="right">0.0</td>
+<td align="right">10.5</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td align="right">0.8</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>In Table 2 the results are shown with one decimal. The cells different from 0 are the same as in the symmetric case, but the distribution centre has been shifted in the direction of longer runs and fewer crossings.</p>
+<p>The times representation may be advantageous for presentation because very small numbers are avoided. However, the main reason for using this representation is to enhance precision in the iterative computation procedure.</p>
+</div>
+<div id="the-symmetric-case-crossrunsymm" class="section level2">
+<h2>The symmetric case: <code>crossrunsymm</code></h2>
+<p>In the symmetric case the joint probabilities are, as illustrated in Table 1, stored as integers in the times representation. A separate function <code>crossrunsymm</code> is available in this case. The arguments, except the success probability, are the same as in the more general function <code>crossrunbin</code>, but the inner workings are somewhat simpler.</p>
+</div>
+<div id="generalisation" class="section level2">
+<h2>Generalisation</h2>
+<p>In the case of variable success probability, a similar procedure is available and implemented in the function <code>crossrunchange</code>. In this procedure all arguments are as in <code>crossrunbin</code>, except that the success probability is replaced by a vector of length n with success probabilities for each of the n time points.</p>
+</div>
+<div id="limitations" class="section level2">
+<h2>Limitations</h2>
+<p>The main limitation of this method is that the procedure does only apply when the median is pre-specified, not when it is determined by the time series itself, which, in practice, is often the case when using run charts for real time process monitoring. Also, the procedure cannot be generalized to autocorrelated time sequences.</p>
+</div>
+<div id="conclusions" class="section level2">
+<h2>Conclusions</h2>
+<p>The <code>crossrun</code> package is, to our knowledge the first software package that allows for the computation of joint probabilities of longest run and number of crossings in time series data. This is an important step forward, as previous work on the subject have only dealt with these parameters as independent entities. This work may form the basis of better tests for non-random variation in time series data than are currently available.</p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<ol style="list-style-type: decimal">
+<li><p>Jacob Anhøj (2015). <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0121349">Diagnostic value of run chart analysis: Using likelihood ratios to compare run chart rules on simulated data series</a> PLOS ONE 10 (3): e0121349.</p></li>
+<li><p>Jacob Anhøj, Anne Vingaard Olesen (2014). <a href="http://www.plosone.org/article/info%3Adoi%2F10.1371%2Fjournal.pone.0113825">Run Charts Revisited: A Simulation Study of Run Chart Rules for Detection of Non-Random Variation in Health Care Processes</a>. PLoS ONE 9(11): e113825.</p></li>
+<li><p>Laurent Fousse, Guillaume Hanrot, Vincent Lefèvre, Patrick Pélissier, Paul Zimmermann. (2007). <a href="http://doi.acm.org/10.1145/1236463.1236468">Mpfr: A multiple-precision binary floating-point library with correct rounding</a> ACM Trans. Math. Softw. 33 (2): 13. ISSN 0098-3500.</p></li>
+<li><p>Martin Mächler (2018). <a href="https://CRAN.R-project.org/package=Rmpfr">Rmpfr: R MPFR - Multiple Precision Floating-Point Reliable</a> R package version 0.7-0.</p></li>
+</ol>
+</div>
+<div id="appendix-checking-procedures" class="section level2">
+<h2>Appendix: Checking procedures</h2>
+<p>Procedures for checking the joint distributions are available in <code>crossrun</code>. First, the function <code>exactbin</code> computes the joint distribution for <span class="math inline">\(n \leq 6\)</span> independently of the iterative procedure, by formulas based on “brute force” enumeration that is practically feasible for these short sequences. An example of use of <code>exactbin</code> for checking of results of the exact procedure is as follows, for n=5 and success probability 0.6 (multiplied by <span class="math inline">\(2^4=16\)</span> to conform with the times representation):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(crossrun)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(Rmpfr)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">exact1   &lt;-<span class="st"> </span><span class="kw">asNumeric</span>((<span class="dv">2</span><span class="op">^</span><span class="dv">4</span>) <span class="op">*</span><span class="st"> </span><span class="kw">exactbin</span>(<span class="dt">n =</span> <span class="dv">5</span>, <span class="dt">p =</span> <span class="fl">0.6</span>))</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">iter1    &lt;-<span class="st"> </span><span class="kw">asNumeric</span>(<span class="kw">crossrunbin</span>(<span class="dt">nmax =</span> <span class="dv">5</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)<span class="op">$</span>pt[[<span class="dv">5</span>]])</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">compare1 &lt;-<span class="st"> </span><span class="kw">cbind</span>(exact1,iter1)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">compare1</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt;        1      2      3      4     5      1      2      3      4     5</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; 0 0.0000 0.0000 0.0000 0.0000 1.408 0.0000 0.0000 0.0000 0.0000 1.408</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt; 1 0.0000 0.0000 1.8432 2.1504 0.000 0.0000 0.0000 1.8432 2.1504 0.000</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; 2 0.0000 2.9184 3.0720 0.0000 0.000 0.0000 2.9184 3.0720 0.0000 0.000</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt; 3 0.0000 3.6864 0.0000 0.0000 0.000 0.0000 3.6864 0.0000 0.0000 0.000</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; 4 0.9216 0.0000 0.0000 0.0000 0.000 0.9216 0.0000 0.0000 0.0000 0.000</span></a></code></pre></div>
+<p>Here the 5 leftmost columns come from exact calculations while the 5 rightmost columns come from the iterative procedure. The maximum absolute difference is computed as 0 in this case. Generally some tiny differences may occur.</p>
+<p>The iterative computations may also be checked for appreciably higher n. As commented above the row sums in the symmetric case are just the binomial coefficients. The following code checks this fact for n=15.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(crossrun)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(Rmpfr)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">bincoeff14           &lt;-<span class="st"> </span>Rmpfr<span class="op">::</span><span class="kw">chooseMpfr.all</span>(<span class="dv">14</span>) <span class="co"># binomial coefficients, n - 1 = 14</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">bincoeff14iter       &lt;-<span class="st"> </span><span class="kw">cumsumm</span>(j15s)[<span class="op">-</span><span class="dv">1</span>, <span class="dv">15</span>]     <span class="co"># row sums, n - 1 = 14</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">compare15            &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">asNumeric</span>(bincoeff14), bincoeff14iter)</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="kw">row.names</span>(compare15) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;exact&quot;</span>,<span class="st">&quot;iter&quot;</span>)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">compare15</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;        1  2   3    4    5    6    7    8    9   10  11 12 13 14</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; exact 14 91 364 1001 2002 3003 3432 3003 2002 1001 364 91 14  1</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; iter  14 91 364 1001 2002 3003 3432 3003 2002 1001 364 91 14  1</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="kw">max</span>(<span class="kw">abs</span>(bincoeff14 <span class="op">-</span><span class="st"> </span>bincoeff14iter))</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; 1 'mpfr' number of precision  53   bits </span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; [1] 0</span></a></code></pre></div>
+<p>This check has been repeated for <span class="math inline">\(n \leq 100\)</span> with full mpfr precision without finding any discrepancies.</p>
+<p>The results of the iterative procedure may also be checked by results of simulations. The <code>crossrun</code> function <code>simclbin</code> performs simulations for the number of crossings and the longest run for chosen values of the success probability. Again, computations for substantially longer sequences (n appreciably higher than 15) should use full mpfr precision for the joint distribution. The following code shows the procedure for n = 15 and 10000 simulations and compares the mean of <span class="math inline">\(C \cdot L\)</span> in the simulations with the corresponding mean from the joint distribution p6.15 with success probability 0.6:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(crossrun)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">83938487</span>)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">sim15 &lt;-<span class="st"> </span><span class="kw">simclbin</span>(<span class="dt">nser =</span> <span class="dv">15</span>, <span class="dt">nsim =</span> <span class="dv">10000</span>)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">(<span class="kw">matrix</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">14</span>, <span class="dt">nrow =</span> <span class="dv">1</span>) <span class="op">%*%</span><span class="st"> </span>p6<span class="fl">.15</span> <span class="op">%*%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>, <span class="dt">ncol =</span> <span class="dv">1</span>)) <span class="op">/</span><span class="st"> </span><span class="dv">2</span><span class="op">^</span><span class="dv">14</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;          [,1]</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; [1,] 28.30112</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="kw">mean</span>(sim15<span class="op">$</span>nc0<span class="fl">.6</span> <span class="op">*</span><span class="st"> </span>sim15<span class="op">$</span>lr0<span class="fl">.6</span>)</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; [1] 28.3145</span></a></code></pre></div>
+<p>Here, <span class="math inline">\(C \cdot L\)</span> is just used as an example of a fairly demanding function of the number C of crossing and the longest run L. Again, computations for substantially longer sequences (n appreciably higher than 15) should use full mpfr precision for the joint distribution. Simpler statistics include means and standard deviations of C and L separately. The following shows a graphical comparison of the cumulative distribution functions of C and L based on the joint distribution and the simulations.</p>
+<p><img src="data:image/png;base64,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" /><!-- --><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
