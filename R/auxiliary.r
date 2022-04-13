@@ -14,10 +14,10 @@
 #' print(cumsumm(mtrx3))
 #' @export
 cumsumm <- function(mtrx) {
-  mtrs <- mtrx
-  nrw <- nrow(mtrx)
-  for (rw in 1:nrw) mtrs[rw, ] <- cumsum(mtrx[rw, ])
-  mtrs
+    mtrs <- mtrx
+    nrw <- nrow(mtrx)
+    for (rw in 1:nrw) mtrs[rw, ] <- cumsum(mtrx[rw, ])
+    mtrs
 }
 
 #' Column-Wise Cumulative Sums
@@ -37,10 +37,10 @@ cumsumm <- function(mtrx) {
 #' print(cumsummcol(mtrx3))
 #' @export
 cumsummcol <- function(mtrx) {
-  mtrs <- mtrx
-  ncl <- ncol(mtrx)
-  for (cl in 1:ncl) mtrs[, cl] <- cumsum(mtrx[, cl])
-  mtrs
+    mtrs <- mtrx
+    ncl <- ncol(mtrx)
+    for (cl in 1:ncl) mtrs[, cl] <- cumsum(mtrx[, cl])
+    mtrs
 }
 
 #' Box Cumulative Sums
@@ -86,44 +86,44 @@ boxprobt <- function(mtrx) {
 #' exactbin(n=5, p=0.6)
 #' @export
 exactbin <- function(n, p = 0.5, prec = 120) {
-  nill <- Rmpfr::mpfr(0, prec)
-  one <- Rmpfr::mpfr(1, prec)
-  two <- Rmpfr::mpfr(2, prec)
-  pm <- Rmpfr::mpfr(p, prec)
-  qm <- one - pm
-  res <- Rmpfr::mpfr2array(one, dim = c(1, 1))
-  if (n == 2)
-    res <- Rmpfr::mpfr2array(c(nill, two * pm * qm, pm^2 + qm^2, nill),
-                             dim = c(2, 2))
-  if (n == 3)
-    res <- Rmpfr::mpfr2array(c(nill, nill, pm * qm, nill, two * pm * qm,
-                               nill, pm^3 + qm^3, nill, nill), dim = c(3, 3))
-  if (n == 4)
-    res <- Rmpfr::mpfr2array(c(rep(nill, 3), 2 * pm^2 * qm^2, nill, 2 *
-                                 pm^2 * qm^2, two * pm * qm * (1 - pm * qm), nill, nill,
-                               two * pm * qm * (pm^2 + qm^2), nill, nill, pm^4 + qm^4,
-                               rep(nill, 3)), dim = c(4, 4))
-  if (n == 5)
-    res <- Rmpfr::mpfr2array(c(rep(nill, 4), pm^2 * qm^2, nill, nill, pm *
-                                 qm * (1 - pm * qm), 4 * pm^2 * qm^2, nill, nill, 2 * pm^2 *
-                                 qm^2, pm * qm * (2 * pm^3 + pm * qm + 2 * qm^3), nill, nill,
-                               nill, 2 * pm * qm * (pm^3 + qm^3), rep(nill, 3), pm^5 +
-                                 qm^5, rep(nill, 4)), dim = c(5, 5))
-  if (n == 6)
-    res <- Rmpfr::mpfr2array(c(rep(nill, 5), 2 * pm^3 * qm^3, nill, nill,
-                               pm^4 * qm^2 + pm^2 * qm^4, 2 * pm^4 * qm^2 + 8 * pm^3 *
-                                 qm^3 + 2 * pm^2 * qm^4, 3 * pm^4 * qm^2 + 4 * pm^3 *
-                                 qm^3 + 3 * pm^2 * qm^4, nill, nill, 2 * pm^3 * qm^3,
-                               2 * pm^5 * qm + 2 * pm^4 * qm^2 + 4 * pm^3 * qm^3 + 2 *
-                                 pm^2 * qm^4 + 2 * pm * qm^5, 4 * pm^4 * qm^2 + 4 * pm^2 *
-                                 qm^4, nill, nill, nill, 2 * pm^4 * qm^2 + 2 * pm^2 *
-                                 qm^4, 2 * pm^5 * qm + pm^4 * qm^2 + pm^2 * qm^4 + 2 *
-                                 pm * qm^5, rep(nill, 3), nill, 2 * pm^5 * qm + 2 * pm *
-                                 qm^5, rep(nill, 4), pm^6 + qm^6, rep(nill, 5)), dim = c(6,
-                                                                                         6))
-  rownames(res) <- c(0:(n - 1))
-  colnames(res) <- c(1:n)
-  return(res)
+    nill <- Rmpfr::mpfr(0, prec)
+    one <- Rmpfr::mpfr(1, prec)
+    two <- Rmpfr::mpfr(2, prec)
+    pm <- Rmpfr::mpfr(p, prec)
+    qm <- one - pm
+    res <- Rmpfr::mpfr2array(one, dim = c(1, 1))
+    if (n == 2)
+        res <- Rmpfr::mpfr2array(c(nill, two * pm * qm, pm^2 + qm^2, nill),
+            dim = c(2, 2))
+    if (n == 3)
+        res <- Rmpfr::mpfr2array(c(nill, nill, pm * qm, nill, two * pm * qm,
+            nill, pm^3 + qm^3, nill, nill), dim = c(3, 3))
+    if (n == 4)
+        res <- Rmpfr::mpfr2array(c(rep(nill, 3), 2 * pm^2 * qm^2, nill, 2 *
+            pm^2 * qm^2, two * pm * qm * (1 - pm * qm), nill, nill,
+            two * pm * qm * (pm^2 + qm^2), nill, nill, pm^4 + qm^4,
+            rep(nill, 3)), dim = c(4, 4))
+    if (n == 5)
+        res <- Rmpfr::mpfr2array(c(rep(nill, 4), pm^2 * qm^2, nill, nill, pm *
+            qm * (1 - pm * qm), 4 * pm^2 * qm^2, nill, nill, 2 * pm^2 *
+            qm^2, pm * qm * (2 * pm^3 + pm * qm + 2 * qm^3), nill, nill,
+            nill, 2 * pm * qm * (pm^3 + qm^3), rep(nill, 3), pm^5 +
+                qm^5, rep(nill, 4)), dim = c(5, 5))
+    if (n == 6)
+        res <- Rmpfr::mpfr2array(c(rep(nill, 5), 2 * pm^3 * qm^3, nill, nill,
+            pm^4 * qm^2 + pm^2 * qm^4, 2 * pm^4 * qm^2 + 8 * pm^3 *
+                qm^3 + 2 * pm^2 * qm^4, 3 * pm^4 * qm^2 + 4 * pm^3 *
+                qm^3 + 3 * pm^2 * qm^4, nill, nill, 2 * pm^3 * qm^3,
+            2 * pm^5 * qm + 2 * pm^4 * qm^2 + 4 * pm^3 * qm^3 + 2 *
+                pm^2 * qm^4 + 2 * pm * qm^5, 4 * pm^4 * qm^2 + 4 * pm^2 *
+                qm^4, nill, nill, nill, 2 * pm^4 * qm^2 + 2 * pm^2 *
+                qm^4, 2 * pm^5 * qm + pm^4 * qm^2 + pm^2 * qm^4 + 2 *
+                pm * qm^5, rep(nill, 3), nill, 2 * pm^5 * qm + 2 * pm *
+                qm^5, rep(nill, 4), pm^6 + qm^6, rep(nill, 5)), dim = c(6,
+            6))
+    rownames(res) <- c(0:(n - 1))
+    colnames(res) <- c(1:n)
+    return(res)
 }
 
 #' Number of Crossings and Longest Run
@@ -138,12 +138,12 @@ exactbin <- function(n, p = 0.5, prec = 120) {
 #' @return number of crossings or longest run, numeric
 #' @export
 clshift <- function(seri, shift = 0, type = 0) {
-  rle.sh <- rle(seri + shift > 0)$lengths
-  if (type == 0)
-    res <- length(rle.sh) - 1
-  if (type == 1)
-    res <- max(rle.sh)
-  return(res)
+    rle.sh <- rle(seri + shift > 0)$lengths
+    if (type == 0)
+        res <- length(rle.sh) - 1
+    if (type == 1)
+        res <- max(rle.sh)
+    return(res)
 }
 
 #' Simulation of Independent Bernoulli Observations
@@ -166,19 +166,19 @@ clshift <- function(seri, shift = 0, type = 0) {
 #' mean(cl30simbin$lr0.9) # mean longest run, p=0.9
 #' @export
 simclbin <- function(nser = 100, nsim = 1e+05, probs = c(0.5, 0.6, 0.7,
-                                                         0.8, 0.9)) {
-  nprob <- length(probs)
-  shifts <- stats::qnorm(probs)
-  series <- data.frame(matrix(stats::rnorm(nser * nsim), nrow = nsim))
-  res <- data.frame(matrix(rep(NA, 2 * nsim * nprob), nrow = nsim))
-  names(res) <- paste(rep(c("nc", "lr"), nprob), rep(probs, rep(2,
-                                                                nprob)), sep = "")
-  for (shnr in 1:nprob) {
-    res[, 1 + 2 * (shnr - 1)] <- apply(series, 1, clshift, shift = shifts[shnr],
-                                       type = 0)
-    res[, 2 * shnr] <- apply(series, 1, clshift, shift = shifts[shnr],
-                             type = 1)
-  }
-  return(res)
+    0.8, 0.9)) {
+    nprob <- length(probs)
+    shifts <- stats::qnorm(probs)
+    series <- data.frame(matrix(stats::rnorm(nser * nsim), nrow = nsim))
+    res <- data.frame(matrix(rep(NA, 2 * nsim * nprob), nrow = nsim))
+    names(res) <- paste(rep(c("nc", "lr"), nprob), rep(probs, rep(2,
+        nprob)), sep = "")
+    for (shnr in 1:nprob) {
+        res[, 1 + 2 * (shnr - 1)] <- apply(series, 1, clshift, shift = shifts[shnr],
+            type = 0)
+        res[, 2 * shnr] <- apply(series, 1, clshift, shift = shifts[shnr],
+            type = 1)
+    }
+    return(res)
 }
 

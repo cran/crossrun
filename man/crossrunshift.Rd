@@ -2,10 +2,9 @@
 % Please edit documentation in R/crossrunbin.r
 \name{crossrunshift}
 \alias{crossrunshift}
-\title{wrapper for crossrunbin, succes probability=pnorm(shift).}
+\title{wrapper for crossrunbin, success probability=pnorm(shift).}
 \usage{
-crossrunshift(nmax = 100, shift = 0, mult = 2, prec = 120,
-  printn = FALSE)
+crossrunshift(nmax = 100, shift = 0, mult = 2, prec = 120, printn = FALSE)
 }
 \arguments{
 \item{nmax}{max sequence length.}
@@ -26,9 +25,9 @@ and pbt and qbt conditional of starting with a failure, are
 included.
 }
 \description{
-wrapper for crossrunbin, succes probability=pnorm(shift).
+wrapper for crossrunbin, success probability=pnorm(shift).
 }
 \examples{
-crs20 <- crossrunshift(nmax=20,printn=TRUE)
-print(crs20$pt[[20]])
+crs15 <- crossrunshift(nmax=15,printn=TRUE)
+print(crs15$pt[[15]])
 }

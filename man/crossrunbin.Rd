@@ -4,8 +4,7 @@
 \alias{crossrunbin}
 \title{Joint Distribution for Crossings and Runs}
 \usage{
-crossrunbin(nmax = 100, prob = 0.5, mult = 2, prec = 120,
-  printn = FALSE)
+crossrunbin(nmax = 100, prob = 0.5, mult = 2, prec = 120, printn = FALSE)
 }
 \arguments{
 \item{nmax}{max sequence length.}

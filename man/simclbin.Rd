@@ -4,8 +4,7 @@
 \alias{simclbin}
 \title{Simulation of Independent Bernoulli Observations}
 \usage{
-simclbin(nser = 100, nsim = 1e+05, probs = c(0.5, 0.6, 0.7, 0.8,
-  0.9))
+simclbin(nser = 100, nsim = 1e+05, probs = c(0.5, 0.6, 0.7, 0.8, 0.9))
 }
 \arguments{
 \item{nser}{length of sequence simulated}

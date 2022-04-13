@@ -4,8 +4,13 @@
 \alias{crossrunchange}
 \title{Joint Distribution for Crossings and Runs, Varying Success Probability.}
 \usage{
-crossrunchange(nmax = 100, prob = rep(0.5, 100), mult = 2,
-  prec = 120, printn = FALSE)
+crossrunchange(
+  nmax = 100,
+  prob = rep(0.5, 100),
+  mult = 2,
+  prec = 120,
+  printn = FALSE
+)
 }
 \arguments{
 \item{nmax}{max sequence length.}
